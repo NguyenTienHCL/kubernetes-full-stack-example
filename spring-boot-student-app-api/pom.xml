@@ -70,8 +70,8 @@
 					</execution>
 				</executions>
 				<configuration>
-					<username>tiennguyen</username>
-					<password>#Tie2610n</password>
+					<username>tiennguyenhcl</username>
+					<password>123456789</password>
 					<repository>registry.hub.docker.com/tiennguyenhcl/${project.artifactId}</repository>
 					<tag>${project.version}</tag>
 					<buildArgs>
