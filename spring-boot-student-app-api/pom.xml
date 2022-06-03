@@ -70,8 +70,7 @@
 					</execution>
 				</executions>
 				<configuration>
-					<username>tiennguyenhcl</username>
-					<password>123456789</password>
+					<useMavenSettingsForAuth>true</useMavenSettingsForAuth>
 					<repository>registry.hub.docker.com/tiennguyenhcl/${project.artifactId}</repository>
 					<tag>${project.version}</tag>
 					<buildArgs>
