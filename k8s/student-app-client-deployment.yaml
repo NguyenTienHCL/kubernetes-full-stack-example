@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: student-app-client
-          image: nirajsonawane/student-app-client
+          image: tiennguyenhcl/student-app-client:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 80
