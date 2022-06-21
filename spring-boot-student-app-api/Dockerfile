@@ -1,5 +1,6 @@
 FROM openjdk:8-jdk-alpine
 ARG JAR_FILE
 COPY ${JAR_FILE} /usr/share/myservice/student-app-api-0.0.1-SNAPSHOT.jar
+COPY target/student-app-api-0.0.1-SNAPSHOT.jar /usr/share/myservice/lib
 ENTRYPOINT ["/usr/bin/java", "-jar", "/usr/share/myservice/student-app-api-0.0.1-SNAPSHOT.jar"]
 EXPOSE 8080
