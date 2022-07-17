@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.api.name }}
+spec:
+  selector:
+    matchLabels: {{ include "common.api" . | nindent 6}}
+  replicas: {{ .Values.api.replicas }}
+  template:
+    metadata:
+      labels: {{ include "common.api" . | nindent 8}}
+    spec:
+      containers:
+        - name: {{ .Values.api.name }}
+          image: {{ .Values.api.image }}
+          imagePullPolicy: {{ .Values.api.policy }}
+          ports:
+            - containerPort: {{ .Values.api.port }}
+          args:
+            - "sleep"
+            - "r"
+          env:
+            - name: {{ .Values.api.env.name }}
+              value: {{ .Values.api.env.value }} 

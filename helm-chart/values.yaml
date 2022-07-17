@@ -1,0 +1,38 @@
+pvc:
+  name: mongo-pvc
+  storage: 256Mi
+
+mongo:
+  name: mongo
+  port: 27017
+  image: mongo:3.6.17-xenial
+  namevol: storage
+  path: /data/db
+
+api:
+  name: student-app-api
+  port: 8080
+  protocol: TCP
+  type: ClusterIP
+  image: tiennguyenhcl/student-app-api:0.0.1-SNAPSHOT
+  policy: Always
+  replicas: 1
+  env:
+    name: MONGO_URL
+    value: mongodb://mongo:27017/dev
+
+client:
+  name: student-app-client
+  port: 80
+  protocol: TCP
+  type: ClusterIP
+  image: tiennguyenhcl/student-app-client:latest
+  policy: Always
+  replicas: 1
+
+ingress:
+  name: student-app-ingress
+  path1: /?(.*)
+  path2: /api/?(.*)
+  type: Prefix
+
