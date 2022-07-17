@@ -2,7 +2,7 @@ node {
 
     stage("Git Clone"){
 
-        git credentialsId: 'GIT_CREDENTIALS', url: 'https://github.com/NguyenTienHCL/kubernetes-full-stack-example.git'
+        git credentialsId: 'Git', url: 'https://github.com/NguyenTienHCL/kubernetes-full-stack-example.git'
     }
 
     stage("Docker build"){
@@ -17,7 +17,7 @@ node {
         }
     }
 
-    withCredentials([string(credentialsId: 'DOCKER_HUB_PASSWORD', variable: 'PASSWORD')]) {
+    withCredentials([string(credentialsId: 'Docker', variable: 'PASSWORD')]) {
         sh 'docker login -u tiennguyenhcl -p $PASSWORD'
     }
 
