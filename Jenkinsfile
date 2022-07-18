@@ -33,17 +33,13 @@ node {
     }
     stage("Deployment"){
         sh 'helm install poc helm-chart/'
-        
-        steps {
-            sh 'helm install prometheus prometheus-community/prometheus'
-            sh 'kubectl expose service prometheus-server --type=NodePort --target-port=9090 --name=prometheus-server-np'
-            sh 'minikube service prometheus-server-np'
-        }
-        
-        steps {
-            sh 'helm install grafana bitnami/grafana'
-            sh 'kubectl expose service grafana --type=NodePort --target-port=3000 --name=grafana-np'
-            sh 'minikube service grafana-np'
-        }
+       
+        sh 'helm install prometheus prometheus-community/prometheus'
+        sh 'kubectl expose service prometheus-server --type=NodePort --target-port=9090 --name=prometheus-server-np'
+        sh 'minikube service prometheus-server-np'
+
+        sh 'helm install grafana bitnami/grafana'
+        sh 'kubectl expose service grafana --type=NodePort --target-port=3000 --name=grafana-np'
+        sh 'minikube service grafana-np'
     }
 }
