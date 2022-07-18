@@ -32,7 +32,6 @@ node {
         sh 'helm repo add bitnami https://charts.bitnami.com/bitnami'
     }
     stage("Deployment"){
-        sh 'helm delete poc'
         sh 'helm install poc helm-chart/'
        
         sh 'helm install prometheus prometheus-community/prometheus'
