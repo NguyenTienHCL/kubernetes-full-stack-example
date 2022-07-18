@@ -32,7 +32,8 @@ node {
         sh 'helm repo add bitnami https://charts.bitnami.com/bitnami'
     }
     stage("Deployment"){
-        sh 'helm install poc helm-chart/'
+        
+        sh 'helm install poc1 helm-chart/'
        
         sh 'helm install prometheus prometheus-community/prometheus'
         sh 'kubectl expose service prometheus-server --type=NodePort --target-port=9090 --name=prometheus-server-np'
