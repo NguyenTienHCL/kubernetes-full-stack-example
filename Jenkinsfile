@@ -33,8 +33,6 @@ node {
     }
     stage("Deployment"){
         sh 'helm delete poc'
-        sh 'helm delete grafana'
-        sh 'helm delete prometheus'
         sh 'helm install poc helm-chart/'
        
         sh 'helm install prometheus prometheus-community/prometheus'
