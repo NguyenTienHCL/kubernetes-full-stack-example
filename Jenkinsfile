@@ -34,5 +34,5 @@ node {
     }
     
     stage("Deploy Application")
-        sh 'helm install poc hem-chart/'
+        sh 'helm install poc helm-chart/'
 }
