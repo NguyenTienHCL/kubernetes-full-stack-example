@@ -28,7 +28,11 @@ node {
         sh 'docker push tiennguyenhcl/student-app-client'
     }
     
-    stage("Deploy Application"){
-        sh 'helm install poc helm-chart/'
+    stages {
+        stage('Deployment'){
+            steps {
+                sh "helm upgrade --install --force"
+            }
+        }
     }
 }
