@@ -31,7 +31,7 @@ node {
     stages {
         stage('Deployment'){
             steps {
-                sh "helm upgrade --install --force"
+                sh 'helm install poc helm-chart/'
             }
         }
     }
