@@ -30,7 +30,7 @@ node {
     
     stage("Add repo"){
         sh 'helm repo add istio https://istio-release.storage.googleapis.com/charts'
-        sh 'helm repo add stable https://kubernetes-charts.storage.googleapis.com/'
+        sh 'helm repo add stable https://charts.helm.sh/stable'
         sh 'helm repo update'
         sh 'helm install stable/postgresql --generate-name'
     }
