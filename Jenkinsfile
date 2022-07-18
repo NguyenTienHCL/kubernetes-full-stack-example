@@ -28,13 +28,6 @@ node {
         sh 'docker push tiennguyenhcl/student-app-client'
     }
     
-    stage("Add repo"){
-        sh 'helm repo add istio https://istio-release.storage.googleapis.com/charts'
-        sh 'helm repo add stable https://charts.helm.sh/stable'
-        sh 'helm repo update'
-        sh 'helm install stable/postgresql --generate-name'
-    }
-    
     stage("Deploy Application")
         sh 'helm install poc helm-chart/'
 }
