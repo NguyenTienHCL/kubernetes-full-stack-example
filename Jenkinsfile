@@ -27,8 +27,23 @@ node {
         }
         sh 'docker push tiennguyenhcl/student-app-client'
     }
-    
+    stage("Add repo"){
+        sh 'helm repo add prometheus-community https://prometheus-community.github.io/helm-charts'
+        sh 'helm repo add bitnami https://charts.bitnami.com/bitnami'
+    }
     stage("Deployment"){
         sh 'helm install poc helm-chart/'
+        
+        steps {
+            sh 'helm install prometheus prometheus-community/prometheus'
+            sh 'kubectl expose service prometheus-server --type=NodePort --target-port=9090 --name=prometheus-server-np'
+            sh 'minikube service prometheus-server-np'
+        }
+        
+        steps {
+            sh 'helm install grafana bitnami/grafana'
+            sh 'kubectl expose service grafana --type=NodePort --target-port=3000 --name=grafana-np'
+            sh 'minikube service grafana-np'
+        }
     }
 }
