@@ -32,15 +32,17 @@ node {
         sh 'helm repo add bitnami https://charts.bitnami.com/bitnami'
     }
     stage("Deployment"){
+//         sh 'minikube start --driver=none --kubernetes-version v1.23.8'
+        sh 'helm upgrade poc1 helm-chart/ --install'
+        sh 'helm upgrade istio-ingress istio/gateway -f ip-external.yaml --install'
+        sh 'helm upgrade istio-base istio/base -n istio-system --install'
         
-        sh 'helm install poc1 helm-chart/'
-       
-        sh 'helm install prometheus prometheus-community/prometheus'
+        sh 'helm upgrade prometheus prometheus-community/prometheus --install'
         sh 'kubectl expose service prometheus-server --type=NodePort --target-port=9090 --name=prometheus-server-np'
-        sh 'minikube service prometheus-server-np'
+//         sh 'minikube service prometheus-server-np'
 
-        sh 'helm install grafana bitnami/grafana'
+        sh 'helm upgrade grafana bitnami/grafana --install'
         sh 'kubectl expose service grafana --type=NodePort --target-port=3000 --name=grafana-np'
-        sh 'minikube service grafana-np'
+//         sh 'minikube service grafana-np'
     }
 }
