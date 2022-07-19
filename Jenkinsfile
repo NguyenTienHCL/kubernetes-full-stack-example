@@ -30,19 +30,32 @@ node {
     stage("Add repo"){
         sh 'helm repo add prometheus-community https://prometheus-community.github.io/helm-charts'
         sh 'helm repo add bitnami https://charts.bitnami.com/bitnami'
+        sh 'helm repo add istio https://istio-release.storage.googleapis.com/charts'
+        sh 'helm repo update'
     }
-    stage("Deployment"){
+    
+    stage("Deployment react"){
 //         sh 'minikube start --driver=none --kubernetes-version v1.23.8'
         sh 'helm upgrade poc1 helm-chart/ --install'
+    }
+    
+    stage("Deployment istio"){
+        sh 'kubectl create namespace istio-system --overwrite'
         sh 'helm upgrade istio-ingress istio/gateway -f ip-external.yaml --install'
         sh 'helm upgrade istio-base istio/base -n istio-system --install'
-        
+        sh 'kubectl create namespace istio-ingress --overwrite'
+        sh 'kubectl label namespace istio-ingress istio-injection=enabled --overwrite'
+    }
+    
+    stage("Deployment pro){
         sh 'helm upgrade prometheus prometheus-community/prometheus --install'
         sh 'kubectl expose service prometheus-server --type=NodePort --target-port=9090 --name=prometheus-server-np'
 //         sh 'minikube service prometheus-server-np'
-
-        sh 'helm upgrade grafana bitnami/grafana --install'
+    }     
+    stage("Deployment gra){
+        sh 'helm upgrade grafana bitnami/grafana -f values-fra.yaml --install'
         sh 'kubectl expose service grafana --type=NodePort --target-port=3000 --name=grafana-np'
+//         sh 'echo "Password: $(kubectl get secret grafana-admin --namespace default -o jsonpath="{.data.GF_SECURITY_ADMIN_PASSWORD}" | base64 -d)"'
 //         sh 'minikube service grafana-np'
     }
 }
