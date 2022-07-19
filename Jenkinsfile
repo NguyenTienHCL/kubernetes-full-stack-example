@@ -34,17 +34,17 @@ node {
         sh 'helm repo update'
     }
     
-    stage("Deployment react"){
-//         sh 'minikube start --driver=none --kubernetes-version v1.23.8'
-        sh 'helm upgrade poc1 helm-chart/ --install'
-    }
-    
     stage("Deployment istio"){
         sh 'kubectl create namespace istio-system'
         sh 'helm upgrade istio-ingress istio/gateway -f ip-external.yaml --install'
         sh 'helm upgrade istio-base istio/base -n istio-system --install'
         sh 'kubectl create namespace istio-ingress'
-        sh 'kubectl label namespace default istio-injection=enabled --overwrite'
+        sh 'kubectl label namespace default istio-injection=enabled'
+    }
+    
+    stage("Deployment react"){
+//         sh 'minikube start --driver=none --kubernetes-version v1.23.8'
+        sh 'helm upgrade poc helm-chart/ --install'
     }
     
     stage("Deployment pro"){
