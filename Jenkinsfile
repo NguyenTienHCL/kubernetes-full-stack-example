@@ -47,12 +47,12 @@ node {
         sh 'kubectl label namespace istio-ingress istio-injection=enabled --overwrite'
     }
     
-    stage("Deployment pro){
+    stage("Deployment pro"){
         sh 'helm upgrade prometheus prometheus-community/prometheus --install'
         sh 'kubectl expose service prometheus-server --type=NodePort --target-port=9090 --name=prometheus-server-np'
 //         sh 'minikube service prometheus-server-np'
     }     
-    stage("Deployment gra){
+    stage("Deployment gra"){
         sh 'helm upgrade grafana bitnami/grafana -f values-fra.yaml --install'
         sh 'kubectl expose service grafana --type=NodePort --target-port=3000 --name=grafana-np'
 //         sh 'echo "Password: $(kubectl get secret grafana-admin --namespace default -o jsonpath="{.data.GF_SECURITY_ADMIN_PASSWORD}" | base64 -d)"'
