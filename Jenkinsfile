@@ -57,7 +57,7 @@ node {
 //         sh 'minikube service prometheus-server-np'
     }     
     stage("Deployment gra"){
-        sh 'helm upgrade grafana bitnami/grafana -f values-gra.yaml --install'
+        sh 'helm upgrade grafana bitnami/grafana --install'
         sh 'kubectl expose service grafana --type=NodePort --target-port=3000 --name=grafana-np'
 //         sh 'echo "Password: $(kubectl get secret grafana-admin --namespace default -o jsonpath="{.data.GF_SECURITY_ADMIN_PASSWORD}" | base64 -d)"'
 //         sh 'minikube service grafana-np'
