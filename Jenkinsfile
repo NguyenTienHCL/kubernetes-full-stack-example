@@ -40,11 +40,11 @@ node {
     }
     
     stage("Deployment istio"){
-        sh 'kubectl create namespace istio-system --overwrite'
+        sh 'kubectl create namespace istio-system'
         sh 'helm upgrade istio-ingress istio/gateway -f ip-external.yaml --install'
         sh 'helm upgrade istio-base istio/base -n istio-system --install'
-        sh 'kubectl create namespace istio-ingress --overwrite'
-        sh 'kubectl label namespace istio-ingress istio-injection=enabled --overwrite'
+        sh 'kubectl create namespace istio-ingress'
+        sh 'kubectl label namespace default istio-injection=enabled --overwrite'
     }
     
     stage("Deployment pro"){
