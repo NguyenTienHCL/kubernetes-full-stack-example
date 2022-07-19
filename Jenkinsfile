@@ -46,7 +46,7 @@ node {
 //         sh 'minikube start --driver=none --kubernetes-version v1.23.8'
         sh 'helm upgrade poc helm-chart/ --install'
         dir("helm-chart"){
-            sh 'kubectl apply -f istio-ingress.yaml'
+            sh 'kubectl apply -f istio_ingress.yaml'
         }
         sh 'helm upgrade istio-ingress istio/gateway -f ip-external.yaml --install'
     }
