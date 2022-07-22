@@ -26,7 +26,7 @@ client:
   port: 80
   protocol: TCP
   type: ClusterIP
-  image: tiennguyenhcl/student-app-client:latest
+  image: tiennguyenhcl/student-app-client:1.0.0
   policy: Always
   replicas: 1
 
