@@ -39,7 +39,7 @@ node {
         sh 'helm upgrade istio-base istio/base -n istio-system --install'
         sh 'helm upgrade istiod istio/istiod -n istio-system --wait --install'
         // sh 'kubectl create namespace istio-ingress'
-        sh 'kubectl label namespace default istio-injection=enabled'
+        sh 'kubectl label namespace default istio-injection=enabled --overwrite'
     }
     
     stage("Deployment react"){
