@@ -54,7 +54,7 @@ service:
   loadBalancerIP: ""
   loadBalancerSourceRanges: []
   externalTrafficPolicy: ""
-  externalIPs: ["10.0.0.253"]
+  externalIPs: ["10.0.0.235"]
 
 resources:
   requests:
