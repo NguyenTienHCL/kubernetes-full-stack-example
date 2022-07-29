@@ -13,7 +13,7 @@ node {
         }
 
         dir ("react-student-management-web-app"){
-            sh 'docker build -t tiennguyenhcl/student-app-client:1.0.3 .'
+            sh 'docker build -t tiennguyenhcl/student-app-client:1.0.4 .'
         }
     }
 
@@ -25,7 +25,7 @@ node {
         dir ("spring-boot-student-app-api"){
             sh 'mvn dockerfile:push'
         }
-        sh 'docker push tiennguyenhcl/student-app-client:1.0.3'
+        sh 'docker push tiennguyenhcl/student-app-client:1.0.4'
     }
     stage("Add repo"){
         sh 'helm repo add prometheus-community https://prometheus-community.github.io/helm-charts'
